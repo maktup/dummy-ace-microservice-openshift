@@ -11,12 +11,14 @@
 
 FROM cp.icr.io/cp/appc/ace:13.0.2.1-r1
 USER root
-COPY compilado /home/aceuser/bars
-RUN chmod -R ugo+rwx /home/aceuser/bars
+COPY compilado /home/aceuser/projects
+RUN chmod -R ugo+rwx /home/aceuser/projects
 USER 1000
-RUN /home/aceuser/ace_compile_bars.sh /home/aceuser/bars
+RUN for d in /home/aceuser/projects/*/ ; do \
+      ibmint package --input-path "$d" --output-bar-file "${d%/}.bar" ; \
+    done
 USER root
-RUN chmod -R ugo+rwx /home/aceuser/bars
+RUN chmod -R ugo+rwx /home/aceuser/projects
 USER 1000
 WORKDIR /home/aceuser
 CMD ["IntegrationServer", "--no-nodejs"]
