@@ -12,7 +12,7 @@
 #    && chmod -R ugo+rwx /var/mqsi/
 #USER 1001
 
-FROM cp.icr.io/cp/appc/ace:12.0.9.0-r1 
+FROM cp.icr.io/cp/appc/ace:12.0.12.11-r1@sha256:80a66965a03eff6edf7d22f147470d84c75d97b65262aaf10ebacd7f7d4c20ea
 USER root
 COPY compilado/*.bar /tmp
 RUN export LICENSE=accept \
