@@ -10,15 +10,8 @@
 #USER 1000
 
 FROM cp.icr.io/cp/appc/ace:13.0.2.1-r1
-USER root
-COPY compilado /home/aceuser/projects
-RUN chmod -R ugo+rwx /home/aceuser/projects
-USER 1000
-RUN for d in /home/aceuser/projects/*/ ; do \
-      ibmint package --input-path "$d" --output-bar-file "${d%/}.bar" ; \
-    done
-USER root
-RUN chmod -R ugo+rwx /home/aceuser/projects
-USER 1000
-WORKDIR /home/aceuser
-CMD ["IntegrationServer", "--no-nodejs"]
+ENV LICENSE accept
+ENV ACE_SERVER_NAME ACE13_Server
+WORKDIR /home/aceuser/ace-server
+RUN mqsiinitializeaceuser
+EXPOSE 7600 7800 7843
