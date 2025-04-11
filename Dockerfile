@@ -1,24 +1,5 @@
-#FROM ibmcom/ace-server:11.0.0.11-r2-20210303-133203-amd64
-#FROM cp.icr.io/cp/appc/ace:13.0.2.1-r1
-#USER root
-#COPY compilado /home/aceuser/bars
-#RUN  chmod -R ugo+rwx /home/aceuser
-#USER 1000
-#RUN ace_compile_bars.sh
-#USER root
-#RUN  chmod -R ugo+rwx /home/aceuser
-#USER 1000
-
 FROM cp.icr.io/cp/appc/ace:13.0.1.0-r1
 USER root
-# Copy the BAR files into /tmp and process them:
-#
-# - Each file is compiled to ensure faster server startup
-# - The files are unpacked into the server work directory
-# - Once all files are in place, the work directory is optimized to speed up server start
-# - The contents are made world-writable to allow for random userids at runtime
-#
-# The results of the commands can be found in the /tmp/deploys file.
 COPY compilado/*.bar /tmp
 RUN export LICENSE=accept \
     && . /opt/ibm/ace-13/server/bin/mqsiprofile \
