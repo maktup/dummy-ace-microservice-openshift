@@ -9,8 +9,7 @@
 #RUN  chmod -R ugo+rwx /home/aceuser
 #USER 1000
 
-ARG  FROMIMAGE=cp.icr.io/cp/appc/ace:13.0.1.0-r1
-FROM ${FROMIMAGE}
+FROM cp.icr.io/cp/appc/ace:13.0.1.0-r1
 USER root
 # Copy the BAR files into /tmp and process them:
 #
